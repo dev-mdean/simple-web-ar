@@ -6,8 +6,10 @@ export default defineConfig({
   base: '/simple-web-ar/',
   build: {
     outDir: '../dist',
+    emptyOutDir: true,
   },
   plugins: [react()],
+  publicDir: './assets',
   root: 'src',
   server: {
     port: 3000,
