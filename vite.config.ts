@@ -8,7 +8,7 @@ export default defineConfig({
     outDir: '../dist',
   },
   plugins: [react()],
-  root: 'public',
+  root: 'src',
   server: {
     port: 3000,
   },
