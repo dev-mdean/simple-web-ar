@@ -18,10 +18,11 @@ const App = () => {
             <model-viewer
               alt='model-viewer'
               ar
-              arModes='webxr scene-viewer quick-look'
-              arScale='auto'
-              cameraControls
-              src={'mercedes-benz_g-class_gltf/scene.gltf'}
+              ar-modes='webxr scene-viewer quick-look'
+              camera-controls
+              id='first'
+              src={'gold-cube.glb'}
+              style={{ backgroundColor: '#00000020', display: 'block', height: '24rem', width: '24rem' }}
             ></model-viewer>
           </Box>
         </Box>
