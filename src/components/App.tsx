@@ -1,5 +1,6 @@
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
@@ -23,7 +24,11 @@ const App = () => {
               id='first'
               src={'gold-cube.glb'}
               style={{ backgroundColor: '#00000020', display: 'block', height: '24rem', width: '24rem' }}
-            ></model-viewer>
+            >
+              <Button className='ar-button' slot='ar-button' variant='contained'>
+                View in AR
+              </Button>
+            </model-viewer>
           </Box>
         </Box>
       </Box>
