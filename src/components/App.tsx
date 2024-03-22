@@ -23,7 +23,7 @@ const App = () => {
               camera-controls
               id='first'
               src={'gold-cube.glb'}
-              style={{ backgroundColor: '#00000020', display: 'block', height: '24rem', width: '24rem' }}
+              style={{ backgroundColor: '#00000020', display: 'block', height: '50vh', width: '100%' }}
             >
               <Button className='ar-button' slot='ar-button' variant='contained'>
                 View in AR
