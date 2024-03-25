@@ -25,6 +25,7 @@ interface ModelViewerJSX {
   ['camera-orbit']?: string
   alt?: string
   style?: Partial<CSSStyleDeclaration> & React.CSSProperties
+  scale?: string
 }
 
 export declare global {

@@ -5,13 +5,24 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { useCallback, useMemo, useState } from 'react'
 
+interface Model {
+  name: string
+  scale: string
+}
+
 const models = {
-  car: 'Mercedes-Benz_G-Class',
-  cube: 'gold-cube',
+  car: {
+    name: 'Mercedes-Benz_G-Class',
+    scale: '0.5 0.5 0.5',
+  } as Model,
+  cube: {
+    name: 'gold-cube',
+    scale: '0.1 0.1 0.1',
+  } as Model,
 }
 
 const App = () => {
-  const [model, setModel] = useState('gold-cube')
+  const [model, setModel] = useState(models.cube)
 
   const handleModelSwitch = useCallback(() => {
     setModel((previous) => {
@@ -42,8 +53,9 @@ const App = () => {
               ar-modes='webxr scene-viewer quick-look'
               camera-controls
               id='first'
-              ios-src={`${model}.usdz`}
-              src={`${model}.glb`}
+              ios-src={`${model.name}.usdz`}
+              scale={model.scale}
+              src={`${model.name}.glb`}
               style={{ backgroundColor: '#00000020', display: 'block', height: '50vh', width: '100%' }}
             >
               <Button className='ar-button' slot='ar-button' variant='contained'>
@@ -52,7 +64,7 @@ const App = () => {
               <Box display='flex' height={1} sx={{ pointerEvents: 'none' }} width={1}>
                 <Box display='flex' flexDirection='column-reverse' flexGrow={1} p={2}>
                   <Button onClick={handleModelSwitch} variant='contained' sx={{ pointerEvents: 'auto' }}>
-                    Switch to {otherModel}
+                    Switch to {otherModel.name}
                   </Button>
                 </Box>
               </Box>
