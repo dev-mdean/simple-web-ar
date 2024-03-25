@@ -1,3 +1,4 @@
+import { ModelViewerElement } from '@google/model-viewer'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -19,20 +20,31 @@ interface Model {
 const models = {
   robot: {
     name: 'robot-operator',
-    scaleAR: '0.5 0.5 0.5',
-    scaleThreeD: '0.5 0.5 0.5',
+    scaleAR: '0.25 0.25 0.25',
+    scaleThreeD: '1 1 1',
   } as Model,
   cube: {
     name: 'gold-cube',
     scaleAR: '0.1 0.1 0.1',
-    scaleThreeD: '0.1 0.1 0.1',
+    scaleThreeD: '1 1 1',
   } as Model,
 }
 
 const App = () => {
-  const modelViewerRef = useRef<HTMLElement>(null)
+  const modelViewerRef = useRef<ModelViewerElement>(null)
   const [model, setModel] = useState(models.cube)
   const [viewingMode, setViewingMode] = useState(ViewingMode.ThreeD)
+
+  const handleActivateAR = useCallback(() => {
+    console.log('Activating AR')
+    modelViewerRef.current?.activateAR()
+    setViewingMode(ViewingMode.AR)
+  }, [])
+
+  const handleExitAR = useCallback(() => {
+    console.log('Exiting AR')
+    setViewingMode(ViewingMode.ThreeD)
+  }, [])
 
   const handleBeforeRender = useCallback(() => {
     console.log('Before Render Called')
@@ -44,17 +56,23 @@ const App = () => {
     setViewingMode(ViewingMode.AR)
   }, [])
 
+  const handleProgress = useCallback((event: unknown) => {
+    console.log('Progress Occurred: ', event)
+  }, [])
+
   useEffect(() => {
     const element = modelViewerRef.current
 
     element?.addEventListener('before-render', handleBeforeRender)
     element?.addEventListener('quick-look-button-tapped', handleQuickLookTapped)
+    element?.addEventListener('progress', handleProgress)
 
     return () => {
       element?.removeEventListener('before-render', handleBeforeRender)
       element?.removeEventListener('quick-look-button-tapped', handleQuickLookTapped)
+      element?.removeEventListener('progress', handleProgress)
     }
-  }, [handleBeforeRender, handleQuickLookTapped])
+  }, [handleBeforeRender, handleProgress, handleQuickLookTapped])
 
   const handleModelSwitch = useCallback(() => {
     setModel((previous) => {
@@ -82,7 +100,7 @@ const App = () => {
       </AppBar>
       <Box flexGrow={1} overflow='hidden'>
         <Box height={1} overflow='scroll'>
-          <Box display='flex' flexDirection='column' p={3}>
+          <Box display='flex' flexDirection='column' rowGap={2} p={3}>
             <Typography>Some content</Typography>
             <model-viewer
               alt='model-viewer'
@@ -96,8 +114,9 @@ const App = () => {
               src={`${model.name}.glb`}
               style={{ backgroundColor: '#00000020', display: 'block', height: '50vh', width: '100%' }}
             >
-              <Button className='ar-button' slot='ar-button' variant='contained'>
-                View in AR
+              <div slot='ar-button' />
+              <Button onClick={handleExitAR} slot='exit-webxr-ar-button' variant='contained'>
+                Exit AR
               </Button>
               <Box display='flex' height={1} sx={{ pointerEvents: 'none' }} width={1}>
                 <Box display='flex' flexDirection='column-reverse' flexGrow={1} p={2}>
@@ -107,6 +126,11 @@ const App = () => {
                 </Box>
               </Box>
             </model-viewer>
+            {!!modelViewerRef.current?.canActivateAR && (
+              <Button onClick={handleActivateAR} variant='contained'>
+                View in AR
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>
