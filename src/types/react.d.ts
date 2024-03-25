@@ -12,7 +12,6 @@ interface ModelViewerJSX {
   alt?: string
   ar?: boolean
   ['ar-modes']?: string
-  ['ar-scale']?: string
   autoplay?: boolean
   ['auto-rotate']?: boolean
   ['camera-controls']?: boolean
