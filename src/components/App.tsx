@@ -1,4 +1,3 @@
-import { ARStatus } from '@google/model-viewer/lib/three-components/ARRenderer'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -35,24 +34,27 @@ const App = () => {
   const [model, setModel] = useState(models.cube)
   const [viewingMode, setViewingMode] = useState(ViewingMode.ThreeD)
 
-  const handleARStatusChange = useCallback((event: Event) => {
-    const customEvent = event as CustomEvent
-    console.log(event)
-    const arStatus: ARStatus = customEvent.detail.status
+  const handleBeforeRender = useCallback(() => {
+    console.log('Before Render Called')
+    setViewingMode(ViewingMode.ThreeD)
+  }, [])
 
-    if (arStatus === 'failed' || arStatus === 'not-presenting') setViewingMode(ViewingMode.AR)
-    else setViewingMode(ViewingMode.ThreeD)
+  const handleQuickLookTapped = useCallback(() => {
+    console.log('Quick Look Tapped')
+    setViewingMode(ViewingMode.AR)
   }, [])
 
   useEffect(() => {
     const element = modelViewerRef.current
 
-    element?.addEventListener('ar-status', handleARStatusChange)
+    element?.addEventListener('before-render', handleBeforeRender)
+    element?.addEventListener('quick-look-button-tapped', handleQuickLookTapped)
 
     return () => {
-      element?.removeEventListener('ar-status', handleARStatusChange)
+      element?.removeEventListener('before-render', handleBeforeRender)
+      element?.removeEventListener('quick-look-button-tapped', handleQuickLookTapped)
     }
-  }, [handleARStatusChange])
+  }, [handleBeforeRender, handleQuickLookTapped])
 
   const handleModelSwitch = useCallback(() => {
     setModel((previous) => {
