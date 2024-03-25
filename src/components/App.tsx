@@ -22,7 +22,8 @@ const App = () => {
               ar-modes='webxr scene-viewer quick-look'
               camera-controls
               id='first'
-              src={'gold-cube.glb'}
+              ios-src='gold-cube.usdz'
+              src='gold-cube.glb'
               style={{ backgroundColor: '#00000020', display: 'block', height: '50vh', width: '100%' }}
             >
               <Button className='ar-button' slot='ar-button' variant='contained'>
