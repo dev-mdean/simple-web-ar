@@ -9,23 +9,24 @@
 // }
 
 interface ModelViewerJSX {
-  src: string
-  poster?: string
-  ['ios-src']?: string
-  ['seamless-poster']?: boolean
-  autoplay?: boolean
-  ['environment-image']?: string
-  exposure?: string
-  ['interaction-prompt-threshold']?: string
-  ['shadow-intensity']?: string
+  alt?: string
   ar?: boolean
   ['ar-modes']?: string
+  arScale?: string
+  autoplay?: boolean
   ['auto-rotate']?: boolean
   ['camera-controls']?: boolean
   ['camera-orbit']?: string
-  alt?: string
-  style?: Partial<CSSStyleDeclaration> & React.CSSProperties
+  ['environment-image']?: string
+  exposure?: string
+  ['interaction-prompt-threshold']?: string
+  ['ios-src']?: string
+  poster?: string
   scale?: string
+  ['seamless-poster']?: boolean
+  ['shadow-intensity']?: string
+  src: string
+  style?: Partial<CSSStyleDeclaration> & React.CSSProperties
 }
 
 export declare global {
