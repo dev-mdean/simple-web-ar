@@ -11,8 +11,8 @@ interface Model {
 }
 
 const models = {
-  car: {
-    name: 'Mercedes-Benz_G-Class',
+  robot: {
+    name: 'robot-operator',
     scale: '0.5 0.5 0.5',
   } as Model,
   cube: {
@@ -26,14 +26,14 @@ const App = () => {
 
   const handleModelSwitch = useCallback(() => {
     setModel((previous) => {
-      if (previous === models.car) return models.cube
-      return models.car
+      if (previous === models.robot) return models.cube
+      return models.robot
     })
   }, [])
 
   const otherModel = useMemo(() => {
-    if (model === models.car) return models.cube
-    return models.car
+    if (model === models.robot) return models.cube
+    return models.robot
   }, [model])
 
   return (
