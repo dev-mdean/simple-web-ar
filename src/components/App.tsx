@@ -5,6 +5,7 @@ import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { isMobileSafari } from 'react-device-detect'
 
 enum ViewingMode {
   AR,
@@ -34,7 +35,6 @@ const App = () => {
   const modelViewerRef = useRef<ModelViewerElement>(null)
   const [model, setModel] = useState(models.cube)
   const [viewingMode, setViewingMode] = useState(ViewingMode.ThreeD)
-  const canUseQuickView = useMemo(() => navigator.userAgent.indexOf('Safari') > -1, [])
 
   const handleActivateAR = useCallback(() => {
     console.log('Activating AR')
@@ -127,7 +127,7 @@ const App = () => {
                 </Box>
               </Box>
             </model-viewer>
-            {(modelViewerRef.current?.canActivateAR || canUseQuickView) && (
+            {(modelViewerRef.current?.canActivateAR || isMobileSafari) && (
               <Button onClick={handleActivateAR} variant='contained'>
                 View in AR
               </Button>
