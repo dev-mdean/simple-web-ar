@@ -51,7 +51,7 @@ const App = () => {
               alt='model-viewer'
               ar
               ar-modes='webxr scene-viewer quick-look'
-              arScale={model.scale}
+              ar-scale={model.scale}
               camera-controls
               id='first'
               ios-src={`${model.name}.usdz`}
