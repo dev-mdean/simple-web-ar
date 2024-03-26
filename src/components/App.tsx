@@ -31,6 +31,7 @@ const App = () => {
 
   const handleActivateAR = useCallback(() => {
     console.log('Activating AR')
+    setQuickLookButtonTapped(false)
     modelViewerRef.current?.activateAR()
   }, [])
 
