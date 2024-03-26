@@ -65,7 +65,7 @@ const App = () => {
               ar-modes='webxr scene-viewer quick-look'
               camera-controls
               id='first'
-              ios-src={`${model.name}.usdz`}
+              ios-src={`${model.name}.usdz#callToAction=Add%20to%20cart`}
               ref={modelViewerRef}
               scale={model.scale}
               src={`${model.name}.glb`}
