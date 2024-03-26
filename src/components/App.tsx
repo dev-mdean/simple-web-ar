@@ -65,7 +65,7 @@ const App = () => {
               ar-modes='webxr scene-viewer quick-look'
               camera-controls
               id='first'
-              ios-src={`${model.name}.usdz#applePayButtonType=buy&checkoutTitle=Biplane%20Toy&checkoutSubtitle=Rustic%20finish%20with%20rotating%20propeller&price=$15`}
+              ios-src={`${model.name}.usdz#applePayButtonType=buy&checkoutTitle=Buy%20Now&checkoutSubtitle=The%20best%20thing%20since%20sliced%20bread&price=$999999999`}
               ref={modelViewerRef}
               scale={model.scale}
               src={`${model.name}.glb`}
