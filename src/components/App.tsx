@@ -4,7 +4,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { isAndroid, isMobile, isMobileSafari } from 'react-device-detect'
 
 interface Model {
@@ -26,6 +26,8 @@ const models = {
 const App = () => {
   const modelViewerRef = useRef<ModelViewerElement>(null)
   const [model, setModel] = useState(models.cube)
+  const price = '$1,000,000'
+  const [quickLookButtonTapped, setQuickLookButtonTapped] = useState(false)
 
   const handleActivateAR = useCallback(() => {
     console.log('Activating AR')
@@ -43,10 +45,24 @@ const App = () => {
     })
   }, [])
 
+  const handleQuickLookButtonTapped = useCallback(() => {
+    setQuickLookButtonTapped(true)
+  }, [])
+
   const otherModel = useMemo(() => {
     if (model === models.robot) return models.cube
     return models.robot
   }, [model])
+
+  useEffect(() => {
+    const modelViewer = modelViewerRef.current
+
+    modelViewer?.addEventListener('quick-look-button-tapped', handleQuickLookButtonTapped)
+
+    return () => {
+      modelViewer?.removeEventListener('quick-look-button-tapped', handleQuickLookButtonTapped)
+    }
+  }, [handleQuickLookButtonTapped])
 
   return (
     <Box display='flex' flexDirection='column' height={1} width={1}>
@@ -65,7 +81,7 @@ const App = () => {
               ar-modes='webxr scene-viewer quick-look'
               camera-controls
               id='first'
-              ios-src={`${model.name}.usdz#applePayButtonType=buy&checkoutTitle=Buy%20Now&checkoutSubtitle=The%20best%20thing%20since%20sliced%20bread&price=$999999999`}
+              ios-src={`${model.name}.usdz#applePayButtonType=buy&checkoutTitle=Buy%20Now&checkoutSubtitle=The%20best%20thing%20since%20sliced%20bread&price=${price}`}
               ref={modelViewerRef}
               scale={model.scale}
               src={`${model.name}.glb`}
@@ -88,6 +104,7 @@ const App = () => {
                 View in AR
               </Button>
             )}
+            {quickLookButtonTapped && <Typography>{price} has been deducted from your bank account</Typography>}
           </Box>
         </Box>
       </Box>
